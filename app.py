@@ -3,8 +3,12 @@ import datetime
 import requests
 import json
 import pandas as pd
+import os
 
 from sql_app import constants
+
+# API URL設定（環境変数で切り替え可能）
+API_URL = os.getenv('API_URL', 'http://127.0.0.1:8000')
 
 page = st.sidebar.selectbox('画面を選択してください', [constants.ADD_USER, constants.ADD_ROOM, constants.ADD_BOOKING])
 
