@@ -19,7 +19,7 @@ if page == constants.ADD_USER:
         submit_button = st.form_submit_button(label="ユーザー登録")
 
     if submit_button:
-        url = 'http://127.0.0.1:8000/users'
+        url = f"{constants.BASE_URL}/users"
         res = requests.post(
             url,
             data=json.dumps(data)
@@ -41,7 +41,7 @@ elif page == constants.ADD_ROOM:
         submit_button = st.form_submit_button(label="会議室登録")
 
     if submit_button:
-        url = 'http://127.0.0.1:8000/rooms'
+        url = f"{constants.BASE_URL}/rooms"
         res = requests.post(
             url,
             data=json.dumps(data)
@@ -53,7 +53,7 @@ elif page == constants.ADD_BOOKING:
     st.title("会議室予約画面")
 
     # ユーザー一覧取得
-    url_users = 'http://127.0.0.1:8000/users'
+    url_users = f"{constants.BASE_URL}/users"
     res = requests.get(url_users)
     users = res.json()
     users_name = {}
@@ -62,7 +62,7 @@ elif page == constants.ADD_BOOKING:
         users_name[user['user_name']] = user['user_id']
 
     # 会議室一覧取得
-    url_rooms = 'http://127.0.0.1:8000/rooms'
+    url_rooms = f"{constants.BASE_URL}/rooms"
     res = requests.get(url_rooms)
     rooms = res.json()
     rooms_name = {}
@@ -80,7 +80,7 @@ elif page == constants.ADD_BOOKING:
     df_rooms.columns = ['会議室名', '定員', '会議室ID']
     st.write(df_rooms)
 
-    url_bookings = 'http://127.0.0.1:8000/bookings'
+    url_bookings = f"{constants.BASE_URL}/bookings"
     res = requests.get(url_bookings)
     bookings = res.json()
     df_bookings = pd.DataFrame(bookings)
@@ -168,7 +168,7 @@ elif page == constants.ADD_BOOKING:
             st.error('予約可能時間は9:00~20:00です。予約日時を確認してください。')
         else:
             # 会議室予約
-            url = 'http://127.0.0.1:8000/bookings'
+            url = f"{constants.BASE_URL}/bookings"
             res = requests.post(
                 url,
                 data=json.dumps(data)
