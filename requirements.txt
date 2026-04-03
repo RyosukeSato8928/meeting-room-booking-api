@@ -5,3 +5,5 @@ streamlit==1.28.1
 requests==2.31.0
 pandas==2.1.3
 python-multipart==0.0.6
+# Pillow 10.4.0 は Python3.14 に対応したバイナリ wheel が不完全なため、明示的に安定版を指定
+Pillow==10.3.0
