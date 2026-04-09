@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session
 from . import models, schemas
-from fastapi import HTTPException
+from fastapi import HTTPException, Response, status
 
 # ユーザー一覧取得
 def get_users(db: Session, skip: int = 0, limit: int = 100):
@@ -54,3 +54,16 @@ def create_booking(db: Session, booking: schemas.Booking):
         return db_booking
     else:
         raise HTTPException(status_code=404, detail='Already booked')
+    
+# 予約削除
+def delete_booking(db: Session, booking_id: int):
+    delete_booking_info = db.query(models.Booking).\
+        filter(models.Booking.booking_id == booking_id).first()
+
+    if not delete_booking_info:
+        raise HTTPException(status_code=404, detail="User not found")
+    
+    db.delete(delete_booking_info)
+    db.commit()
+
+    return Response(status_code=status.HTTP_204_NO_CONTENT)
