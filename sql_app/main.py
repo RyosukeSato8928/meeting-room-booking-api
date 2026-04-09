@@ -49,3 +49,8 @@ async def create_rooms(room: schemas.RoomCreate, db: Session = Depends(get_db)):
 # booking: schemas.Bookingは、リクエストボディからユーザーデータを受け取るための引数（登録するデータ）
 async def create_bookings(booking: schemas.BookingCreate, db: Session = Depends(get_db)):
     return crud.create_booking(db=db, booking=booking)
+
+# Delete
+@app.delete("/bookings/{booking_id}", response_model=schemas.Booking)
+async def delete_bookings(booking_id: int, db: Session = Depends(get_db)):
+    return crud.delete_booking(db=db, booking_id=booking_id)
